@@ -22,8 +22,14 @@ module.exports = (state = {}, action) => {
                 todos: (state.todos || []).map(todo => todo.id === action.payload ?
                     {...todo, completed: !todo.completed} : todo)
             };
+        case 'RENDER_COMPLETED':
+            return {
+                ...state,
+                todos: (state.todos || []).filter(todo => todo.completed === action.payload)
+            };
         default:
             return state;
     }
 };
+
 

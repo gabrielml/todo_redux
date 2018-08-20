@@ -4,7 +4,13 @@ describe('state reducer', () => {
     it('should add a new todo when the action is ADD_TODO and there are no Todos', () => {
         const newState = reducer({}, {type: 'ADD_TODO', payload: 'Learn Redux'});
 
-        expect(newState).toEqual({todos: [{id: expect.any(Number), completed: false, text: 'Learn Redux'}]});
+        expect(newState).toEqual({
+            todos: [{
+                id: expect.any(Number),
+                completed: false,
+                text: 'Learn Redux'
+            }]
+        });
     });
 
     it('should add a new todo when the action is ADD_TODO and there are Todos', () => {
@@ -41,5 +47,20 @@ describe('state reducer', () => {
                 {id: 42, completed: true, text: 'foo'}
             ]
         });
+    });
+
+    it('should render only completed todos when the action is RENDER_COMPLETED', () => {
+        const newState = reducer({
+            todos: [{id: 45, completed: false, text: 'foo'}, {
+                id: 46,
+                completed: true,
+                text: 'bar'
+            }]
+        }, {
+            type: 'RENDER_COMPLETED',
+            payload: true
+        });
+
+        expect(newState).toEqual({todos: [{id: 46, completed: true, text: 'bar'}]});
     });
 });
