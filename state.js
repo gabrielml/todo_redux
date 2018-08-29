@@ -34,11 +34,6 @@ module.exports = (state = {}, action) => {
                 filteredTodos: (state.todos || []).filter(getFilterPredicate(action.payload)),
                 filter: action.payload
             };
-        case 'RENDER_NOT_COMPLETED':
-            return {
-                ...state,
-                todos: (state.todos || []).filter(todo => todo.completed === action.payload )
-            };
         default:
             return state;
     }
