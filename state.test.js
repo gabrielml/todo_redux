@@ -9,6 +9,12 @@ describe('state reducer', () => {
                 id: expect.any(Number),
                 completed: false,
                 text: 'Learn Redux'
+            }],
+            filter: 'ALL',
+            filteredTodos: [{
+                id: expect.any(Number),
+                completed: false,
+                text: 'Learn Redux'
             }]
         });
     });
@@ -21,6 +27,11 @@ describe('state reducer', () => {
 
         expect(newState).toEqual({
             todos: [
+                {id: 42, completed: false, text: 'foo'},
+                {id: expect.any(Number), completed: false, text: 'Learn Redux'}
+            ],
+            filter: 'ALL',
+            filteredTodos: [
                 {id: 42, completed: false, text: 'foo'},
                 {id: expect.any(Number), completed: false, text: 'Learn Redux'}
             ]
@@ -49,18 +60,58 @@ describe('state reducer', () => {
         });
     });
 
-    it('should render only completed todos when the action is RENDER_COMPLETED', () => {
+    it('should filter only completed todos when the action is FILTER_TODOS and the filter is COMPLETED', () => {
         const newState = reducer({
-            todos: [{id: 45, completed: false, text: 'foo'}, {
-                id: 46,
-                completed: true,
-                text: 'bar'
-            }]
+            todos: [
+                {id: 45, completed: false, text: 'foo'},
+                {id: 46, completed: true, text: 'bar'}
+            ]
         }, {
-            type: 'RENDER_COMPLETED',
+            type: 'FILTER_TODOS',
+            payload: 'COMPLETED'
+        });
+
+        expect(newState).toEqual({
+            todos: [
+                {id: 45, completed: false, text: 'foo'},
+                {id: 46, completed: true, text: 'bar'}],
+            filter: 'COMPLETED',
+            filteredTodos: [
+                {id: 46, completed: true, text: 'bar'}
+            ]
+        });
+    });
+
+    it('should render only active todos when the action is RENDER_NOT_COMPLETED', () => {
+        const newState = reducer({
+            todos: [
+                {id: 45, completed: false, text: 'foo'},
+                {id: 46, completed: true, text: 'bar'}
+            ]
+        }, {
+            type: 'RENDER_NOT_COMPLETED',
+            payload: false
+        });
+
+        expect(newState).toEqual({todos: [{id: 45, completed: false, text: 'foo'}]});
+    });
+
+    it('should render all todos when the action is RENDER_ALL', () => {
+        const newState = reducer({
+            todos: [
+                {id: 45, completed: false, text: 'foo'},
+                {id: 46, completed: true, text: 'bar'}
+            ]
+        }, {
+            type: 'RENDER_ALL',
             payload: true
         });
 
-        expect(newState).toEqual({todos: [{id: 46, completed: true, text: 'bar'}]});
+        expect(newState).toEqual({
+            todos: [
+                {id: 45, completed: false, text: 'foo'},
+                {id: 46, completed: true, text: 'bar'}
+            ]
+        })
     });
 });
