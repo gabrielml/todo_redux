@@ -39,12 +39,51 @@ describe('state reducer', () => {
     });
 
     it('should remove given todo when the action is REMOVE_TODO and the todo exists', () => {
-        const newState = reducer({todos: [{id: 42, completed: false, text: 'Learn Redux'}]}, {
+        const newState = reducer({
+            todos: [
+                {id: 42, completed: false, text: 'Learn Redux'}
+                ],
+            filter: 'ALL',
+            filteredTodos: [
+                {id: 42, completed: false, text: 'Learn Redux'}
+            ]
+        }, {
             type: 'REMOVE_TODO',
             payload: 42
         });
 
-        expect(newState).toEqual({todos: []});
+        expect(newState).toEqual({
+            todos: [],
+            filter: 'ALL',
+            filteredTodos: []
+        });
+    });
+
+    it('should remove given todo when the action is REMOVE_TODO and there are Todos', () => {
+        const newState = reducer({
+            todos: [
+                {id: 45, completed: false, text: 'foo'},
+                {id: 46, completed: true, text: 'bar'}
+            ],
+            filter: 'ALL',
+            filteredTodos: [
+                {id: 45, completed: false, text: 'foo'},
+                {id: 46, completed: true, text: 'bar'}
+            ]
+        }, {
+            type: 'REMOVE_TODO',
+            payload: 46
+        });
+
+        expect(newState).toEqual({
+            todos: [
+                {id: 45, completed: false, text: 'foo'}
+            ],
+            filter: 'ALL',
+            filteredTodos: [
+                {id: 45, completed: false, text: 'foo'}
+            ]
+        });
     });
 
     it('should toggle given todo when the action is TOGGLE_TODO and the todo exists', () => {

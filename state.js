@@ -18,9 +18,13 @@ module.exports = (state = {}, action) => {
                 filter: 'ALL'
             };
         case 'REMOVE_TODO':
+            const todos = (state.todos || []).filter(todo => todo.id !== action.payload);
+
             return {
                 ...state,
-                todos: (state.todos || []).filter(todo => todo.id !== action.payload)
+                todos: todos,
+                filteredTodos: todos.filter(getFilterPredicate(state.filter)),
+                filter: state.filter
             };
         case 'TOGGLE_TODO':
             return {
