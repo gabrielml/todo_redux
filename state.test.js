@@ -42,7 +42,7 @@ describe('state reducer', () => {
         const newState = reducer({
             todos: [
                 {id: 42, completed: false, text: 'Learn Redux'}
-                ],
+            ],
             filter: 'ALL',
             filteredTodos: [
                 {id: 42, completed: false, text: 'Learn Redux'}
@@ -87,7 +87,15 @@ describe('state reducer', () => {
     });
 
     it('should toggle given todo when the action is TOGGLE_TODO and the todo exists', () => {
-        const newState = reducer({todos: [{id: 42, completed: false, text: 'foo'}]}, {
+        const newState = reducer({
+            todos: [
+                {id: 42, completed: false, text: 'foo'}
+            ],
+            filter: 'ALL',
+            filteredTodos: [
+                {id: 42, completed: false, text: 'foo'}
+            ]
+        }, {
             type: 'TOGGLE_TODO',
             payload: 42
         });
@@ -95,9 +103,14 @@ describe('state reducer', () => {
         expect(newState).toEqual({
             todos: [
                 {id: 42, completed: true, text: 'foo'}
+            ],
+            filter: 'ALL',
+            filteredTodos: [
+                {id: 42, completed: true, text: 'foo'}
             ]
         });
     });
+
 
     it('should filter only completed todos when the action is FILTER_TODOS and the filter is COMPLETED', () => {
         const newState = reducer({

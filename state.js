@@ -1,4 +1,5 @@
 let nextId = 0;
+let todos;
 
 module.exports = (state = {}, action) => {
     switch (action.type) {
@@ -18,7 +19,7 @@ module.exports = (state = {}, action) => {
                 filter: 'ALL'
             };
         case 'REMOVE_TODO':
-            const todos = (state.todos || []).filter(todo => todo.id !== action.payload);
+             todos = (state.todos || []).filter(todo => todo.id !== action.payload);
 
             return {
                 ...state,
@@ -27,10 +28,14 @@ module.exports = (state = {}, action) => {
                 filter: state.filter
             };
         case 'TOGGLE_TODO':
+            todos = (state.todos || []).map(todo => todo.id === action.payload ?
+                {...todo, completed: !todo.completed} : todo);
+
             return {
                 ...state,
-                todos: (state.todos || []).map(todo => todo.id === action.payload ?
-                    {...todo, completed: !todo.completed} : todo)
+                todos: todos,
+                filteredTodos: todos.filter(getFilterPredicate(state.filter)),
+                filter: state.filter
             };
         case 'FILTER_TODOS':
             return {
