@@ -142,6 +142,31 @@ describe('state reducer', () => {
 
     });
 
+    it('should filter all todos when the action is FILTER_TODOS and the filter is FILTER_ALL', () => {
+        const newState = reducer({
+            todos: [
+                {id: 45, completed: false, text: 'foo'},
+                {id: 46, completed: true, text: 'bar'}
+            ]
+        },{
+            type: 'FILTER_TODOS',
+            payload: FILTER_ALL
+        });
+
+        expect(newState).toEqual({
+            todos: [
+                {id: 45, completed: false, text: 'foo'},
+                {id: 46, completed: true, text: 'bar'}
+            ],
+            filter: FILTER_ALL,
+            filteredTodos: [
+                {id: 45, completed: false, text: 'foo'},
+                {id: 46, completed: true, text: 'bar'}
+            ]
+        });
+
+    });
+
     it('should filter only completed todos when the action is FILTER_TODOS and the filter is FILTER_COMPLETED', () => {
         const newState = reducer({
             todos: [
