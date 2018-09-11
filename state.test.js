@@ -87,6 +87,34 @@ describe('state reducer', () => {
         });
     });
 
+    it('should remove all completed todos when the action is REMOVE_COMPLETED_TODOS', () => {
+        const newState = reducer({
+            todos: [
+                {id: 45, completed: true, text: 'foo'},
+                {id: 46, completed: false, text: 'bar'},
+                {id: 47, completed: true, text: 'baz'}
+            ],
+            filter: FILTER_ALL,
+            filteredTodos: [
+                {id: 45, completed: true, text: 'foo'},
+                {id: 46, completed: false, text: 'bar'},
+                {id: 47, completed: true, text: 'baz'}
+            ]
+        },{
+            type: 'REMOVE_COMPLETED_TODOS'
+        });
+
+        expect(newState).toEqual({
+            todos: [
+                {id: 46, completed: false, text: 'bar'},
+            ],
+            filter: FILTER_ALL,
+            filteredTodos: [
+                {id: 46, completed: false, text: 'bar'},
+            ]
+        });
+    });
+
     it('should toggle given todo when the action is TOGGLE_TODO and the todo exists', () => {
         const newState = reducer({
             todos: [

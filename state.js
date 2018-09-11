@@ -27,6 +27,11 @@ exports.reducer = (state = {}, action) => {
             filter = state.filter;
 
             return createState(todos, filter);
+        case 'REMOVE_COMPLETED_TODOS':
+            todos = (state.todos || []).filter(todo => todo.completed === false);
+            filter = state.filter;
+
+            return createState(todos, filter);
         case 'TOGGLE_TODO':
             todos = (state.todos || []).map(todo => todo.id === action.payload ?
                 {...todo, completed: !todo.completed} : todo);
