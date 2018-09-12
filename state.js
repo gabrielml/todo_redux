@@ -39,8 +39,9 @@ exports.reducer = (state = {}, action) => {
 
             return createState(todos, filter);
         case 'TOGGLE_ALL':
-            todos = (state.todos || []).map(todo => todo.completed === false ?
-                {...todo, completed: !todo.completed} : todo);
+            const newState = state.todos.some(todo => !todo.completed);
+
+            todos = (state.todos || []).map(todo => ({...todo, completed: newState}));
             filter = state.filter;
 
             return createState(todos, filter);

@@ -100,7 +100,7 @@ describe('state reducer', () => {
                 {id: 46, completed: false, text: 'bar'},
                 {id: 47, completed: true, text: 'baz'}
             ]
-        },{
+        }, {
             type: 'REMOVE_COMPLETED_TODOS'
         });
 
@@ -169,20 +169,84 @@ describe('state reducer', () => {
         });
     });
 
-    it('should toggle all todo when the action is TOGGLE_ALL and there are Todos', () => {
+    it('should toggle all todos to true when the action is TOGGLE_ALL and there are Todos', () => {
         const newState = reducer({
             todos: [
                 {id: 45, completed: false, text: 'foo'},
-                {id: 46, completed: true, text: 'bar'},
+                {id: 46, completed: false, text: 'bar'},
                 {id: 47, completed: false, text: 'baz'}
             ],
             filter: FILTER_ALL,
             filteredTodos: [
                 {id: 45, completed: false, text: 'foo'},
-                {id: 46, completed: true, text: 'bar'},
+                {id: 46, completed: false, text: 'bar'},
                 {id: 47, completed: false, text: 'baz'}
             ]
-        },{
+        }, {
+            type: 'TOGGLE_ALL'
+        });
+
+        expect(newState).toEqual({
+            todos: [
+                {id: 45, completed: true, text: 'foo'},
+                {id: 46, completed: true, text: 'bar'},
+                {id: 47, completed: true, text: 'baz'}
+            ],
+            filter: FILTER_ALL,
+            filteredTodos: [
+                {id: 45, completed: true, text: 'foo'},
+                {id: 46, completed: true, text: 'bar'},
+                {id: 47, completed: true, text: 'baz'}
+            ]
+        });
+    });
+
+    it('should toggle all todos to false when the action is TOGGLE_ALL and there are Todos', () => {
+        const newState = reducer({
+            todos: [
+                {id: 45, completed: true, text: 'foo'},
+                {id: 46, completed: true, text: 'bar'},
+                {id: 47, completed: true, text: 'baz'}
+            ],
+            filter: FILTER_ALL,
+            filteredTodos: [
+                {id: 45, completed: true, text: 'foo'},
+                {id: 46, completed: true, text: 'bar'},
+                {id: 47, completed: true, text: 'baz'}
+            ]
+        }, {
+            type: 'TOGGLE_ALL'
+        });
+
+        expect(newState).toEqual({
+            todos: [
+                {id: 45, completed: false, text: 'foo'},
+                {id: 46, completed: false, text: 'bar'},
+                {id: 47, completed: false, text: 'baz'}
+            ],
+            filter: FILTER_ALL,
+            filteredTodos: [
+                {id: 45, completed: false, text: 'foo'},
+                {id: 46, completed: false, text: 'bar'},
+                {id: 47, completed: false, text: 'baz'}
+            ]
+        });
+    });
+
+    it('should toggle all todos to true when the action is TOGGLE_ALL and there are at least one todo true', () => {
+        const newState = reducer({
+            todos: [
+                {id: 45, completed: false, text: 'foo'},
+                {id: 46, completed: false, text: 'bar'},
+                {id: 47, completed: true, text: 'baz'}
+            ],
+            filter: FILTER_ALL,
+            filteredTodos: [
+                {id: 45, completed: false, text: 'foo'},
+                {id: 46, completed: false, text: 'bar'},
+                {id: 47, completed: true, text: 'baz'}
+            ]
+        }, {
             type: 'TOGGLE_ALL'
         });
 
