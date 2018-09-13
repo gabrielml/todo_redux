@@ -1,7 +1,9 @@
 const state = require('./state');
-const {reducer, FILTER_ALL, FILTER_COMPLETED, FILTER_NOT_COMPLETED,
+const {
+    reducer, ALL_FILTER, COMPLETED_FILTER, NOT_COMPLETED_FILTER,
     ADD_TODO_ACTION, REMOVE_TODO_ACTION, REMOVE_COMPLETED_TODOS_ACTION,
-    TOGGLE_TODO_ACTION, TOGGLE_ALL_ACTION, FILTER_TODOS_ACTION} = state;
+    TOGGLE_TODO_ACTION, TOGGLE_ALL_ACTION, FILTER_TODOS_ACTION
+} = state;
 
 describe('state reducer', () => {
     it('should add a new todo when the action is ADD_TODO_ACTION and there are no Todos', () => {
@@ -13,7 +15,7 @@ describe('state reducer', () => {
                 completed: false,
                 text: 'Learn Redux'
             }],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: [{
                 id: expect.any(Number),
                 completed: false,
@@ -33,7 +35,7 @@ describe('state reducer', () => {
                 {id: 42, completed: false, text: 'foo'},
                 {id: expect.any(Number), completed: false, text: 'Learn Redux'}
             ],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: [
                 {id: 42, completed: false, text: 'foo'},
                 {id: expect.any(Number), completed: false, text: 'Learn Redux'}
@@ -46,7 +48,7 @@ describe('state reducer', () => {
             todos: [
                 {id: 42, completed: false, text: 'Learn Redux'}
             ],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: [
                 {id: 42, completed: false, text: 'Learn Redux'}
             ]
@@ -57,7 +59,7 @@ describe('state reducer', () => {
 
         expect(newState).toEqual({
             todos: [],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: []
         });
     });
@@ -68,7 +70,7 @@ describe('state reducer', () => {
                 {id: 45, completed: false, text: 'foo'},
                 {id: 46, completed: true, text: 'bar'}
             ],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: [
                 {id: 45, completed: false, text: 'foo'},
                 {id: 46, completed: true, text: 'bar'}
@@ -82,7 +84,7 @@ describe('state reducer', () => {
             todos: [
                 {id: 45, completed: false, text: 'foo'}
             ],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: [
                 {id: 45, completed: false, text: 'foo'}
             ]
@@ -96,13 +98,13 @@ describe('state reducer', () => {
                 {id: 46, completed: false, text: 'bar'},
                 {id: 47, completed: true, text: 'baz'}
             ],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: [
                 {id: 45, completed: true, text: 'foo'},
                 {id: 46, completed: false, text: 'bar'},
                 {id: 47, completed: true, text: 'baz'}
             ]
-        },{
+        }, {
             type: REMOVE_COMPLETED_TODOS_ACTION
         });
 
@@ -110,7 +112,7 @@ describe('state reducer', () => {
             todos: [
                 {id: 46, completed: false, text: 'bar'},
             ],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: [
                 {id: 46, completed: false, text: 'bar'},
             ]
@@ -122,7 +124,7 @@ describe('state reducer', () => {
             todos: [
                 {id: 42, completed: false, text: 'foo'}
             ],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: [
                 {id: 42, completed: false, text: 'foo'}
             ]
@@ -135,7 +137,7 @@ describe('state reducer', () => {
             todos: [
                 {id: 42, completed: true, text: 'foo'}
             ],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: [
                 {id: 42, completed: true, text: 'foo'}
             ]
@@ -148,7 +150,7 @@ describe('state reducer', () => {
                 {id: 45, completed: false, text: 'foo'},
                 {id: 46, completed: false, text: 'bar'}
             ],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: [
                 {id: 45, completed: false, text: 'foo'},
                 {id: 46, completed: false, text: 'bar'}
@@ -163,7 +165,7 @@ describe('state reducer', () => {
                 {id: 45, completed: false, text: 'foo'},
                 {id: 46, completed: true, text: 'bar'}
             ],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: [
                 {id: 45, completed: false, text: 'foo'},
                 {id: 46, completed: true, text: 'bar'}
@@ -178,7 +180,7 @@ describe('state reducer', () => {
                 {id: 46, completed: false, text: 'bar'},
                 {id: 47, completed: false, text: 'baz'}
             ],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: [
                 {id: 45, completed: false, text: 'foo'},
                 {id: 46, completed: false, text: 'bar'},
@@ -194,7 +196,7 @@ describe('state reducer', () => {
                 {id: 46, completed: true, text: 'bar'},
                 {id: 47, completed: true, text: 'baz'}
             ],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: [
                 {id: 45, completed: true, text: 'foo'},
                 {id: 46, completed: true, text: 'bar'},
@@ -210,7 +212,7 @@ describe('state reducer', () => {
                 {id: 46, completed: true, text: 'bar'},
                 {id: 47, completed: true, text: 'baz'}
             ],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: [
                 {id: 45, completed: true, text: 'foo'},
                 {id: 46, completed: true, text: 'bar'},
@@ -226,7 +228,7 @@ describe('state reducer', () => {
                 {id: 46, completed: false, text: 'bar'},
                 {id: 47, completed: false, text: 'baz'}
             ],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: [
                 {id: 45, completed: false, text: 'foo'},
                 {id: 46, completed: false, text: 'bar'},
@@ -242,7 +244,7 @@ describe('state reducer', () => {
                 {id: 46, completed: false, text: 'bar'},
                 {id: 47, completed: true, text: 'baz'}
             ],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: [
                 {id: 45, completed: false, text: 'foo'},
                 {id: 46, completed: false, text: 'bar'},
@@ -258,7 +260,7 @@ describe('state reducer', () => {
                 {id: 46, completed: true, text: 'bar'},
                 {id: 47, completed: true, text: 'baz'}
             ],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: [
                 {id: 45, completed: true, text: 'foo'},
                 {id: 46, completed: true, text: 'bar'},
@@ -267,15 +269,15 @@ describe('state reducer', () => {
         });
     });
 
-    it('should filter all todos when the action is FILTER_TODOS_ACTION and the filter is FILTER_ALL', () => {
+    it('should filter all todos when the action is FILTER_TODOS_ACTION and the filter is ALL_FILTER', () => {
         const newState = reducer({
             todos: [
                 {id: 45, completed: false, text: 'foo'},
                 {id: 46, completed: true, text: 'bar'}
             ]
-        },{
+        }, {
             type: FILTER_TODOS_ACTION,
-            payload: FILTER_ALL
+            payload: ALL_FILTER
         });
 
         expect(newState).toEqual({
@@ -283,7 +285,7 @@ describe('state reducer', () => {
                 {id: 45, completed: false, text: 'foo'},
                 {id: 46, completed: true, text: 'bar'}
             ],
-            filter: FILTER_ALL,
+            filter: ALL_FILTER,
             filteredTodos: [
                 {id: 45, completed: false, text: 'foo'},
                 {id: 46, completed: true, text: 'bar'}
@@ -292,7 +294,7 @@ describe('state reducer', () => {
 
     });
 
-    it('should filter only completed todos when the action is FILTER_TODOS_ACTION and the filter is FILTER_COMPLETED', () => {
+    it('should filter only completed todos when the action is FILTER_TODOS_ACTION and the filter is COMPLETED_FILTER', () => {
         const newState = reducer({
             todos: [
                 {id: 45, completed: false, text: 'foo'},
@@ -300,21 +302,21 @@ describe('state reducer', () => {
             ]
         }, {
             type: FILTER_TODOS_ACTION,
-            payload: FILTER_COMPLETED
+            payload: COMPLETED_FILTER
         });
 
         expect(newState).toEqual({
             todos: [
                 {id: 45, completed: false, text: 'foo'},
                 {id: 46, completed: true, text: 'bar'}],
-            filter: FILTER_COMPLETED,
+            filter: COMPLETED_FILTER,
             filteredTodos: [
                 {id: 46, completed: true, text: 'bar'}
             ]
         });
     });
 
-    it('should filter only active todos when the action is FILTER_TODOS_ACTION and the filter is FILTER_NOT_COMPLETED', () => {
+    it('should filter only active todos when the action is FILTER_TODOS_ACTION and the filter is NOT_COMPLETED_FILTER', () => {
         const newState = reducer({
             todos: [
                 {id: 45, completed: false, text: 'foo'},
@@ -322,7 +324,7 @@ describe('state reducer', () => {
             ]
         }, {
             type: FILTER_TODOS_ACTION,
-            payload: FILTER_NOT_COMPLETED
+            payload: NOT_COMPLETED_FILTER
         });
 
         expect(newState).toEqual({
@@ -330,7 +332,7 @@ describe('state reducer', () => {
                 {id: 45, completed: false, text: 'foo'},
                 {id: 46, completed: true, text: 'bar'}
             ],
-            filter: FILTER_NOT_COMPLETED,
+            filter: NOT_COMPLETED_FILTER,
             filteredTodos: [
                 {id: 45, completed: false, text: 'foo'}
             ]
